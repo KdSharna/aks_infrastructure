@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: todo-ui
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/KdSharna/MicroTodoUI.git'
+    targetRevision: main
+    path: manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
