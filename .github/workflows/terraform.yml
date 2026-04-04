@@ -6,6 +6,8 @@ on:
 jobs:
   terrform:
     runs-on: ubuntu-latest
+    
+    environment: MY_AKS
 
     defaults:
       run:
