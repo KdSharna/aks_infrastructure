@@ -3,6 +3,10 @@ name: Terraform AKS Deploy
 on: 
   workflow_dispatch
 
+permissions:
+  id-token: write      # 👈 MOST IMPORTANT
+  contents: read
+
 jobs:
   terrform:
     runs-on: ubuntu-latest
