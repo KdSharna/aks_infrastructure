@@ -6,8 +6,6 @@ on:
 jobs:
   terrform:
     runs-on: ubuntu-latest
-    
-    environment: MY_AKS
 
     defaults:
       run:
@@ -23,9 +21,9 @@ jobs:
       - name: Azure Login (OIDC)
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-id: e1438469-06c5-448d-88c2-29ab744032c2
+          tenant-id: 3d084a01-eb62-47fe-bb1e-748c68591432
+          subscription-id: cfc0d37c-0341-4d06-bcf3-35b93770a2ee
 
       - name: Terraform Init
         run: terraform init
