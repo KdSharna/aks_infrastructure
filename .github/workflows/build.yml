@@ -33,4 +33,4 @@ jobs:
         run: docker build -t akscon1.azurecr.io/myapp:v1 environment/dev/MicroTodoUI
 
       - name: Push Image to ACR
-        run: docker push akscon1.azurecr.io/myapp:v1
+        run: docker push akscon1.azurecr.io/todo-ui:v1
