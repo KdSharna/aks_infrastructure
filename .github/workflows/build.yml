@@ -1,5 +1,5 @@
 
-name: Deploy to AKS
+name: Build & Push to ACR
 
 on:
   workflow_run:
