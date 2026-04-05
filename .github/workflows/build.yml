@@ -30,7 +30,7 @@ jobs:
         run: az acr login --name akscon1
 
       - name: Build Docker Image
-        run: docker build -t akscon1.azurecr.io/myapp:v1 environment/dev/MicroTodoUI
+        run: docker build -t akscon1.azurecr.io/todo-ui:v1 environment/dev/MicroTodoUI
 
       - name: Push Image to ACR
         run: docker push akscon1.azurecr.io/todo-ui:v1
