@@ -1,1 +1,38 @@
+name: Deploy to AKS
 
+on:
+  workflow_run:
+    workflows: ["Build & Push to ACR"]
+    types:
+      - completed
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Azure Login (OIDC)
+        uses: azure/login@v1
+        with:
+          client-id: e1438469-06c5-448d-88c2-29ab744032c2
+          tenant-id: 3d084a01-eb62-47fe-bb1e-748c68591432
+          subscription-id: cfc0d37c-0341-4d06-bcf3-35b93770a2ee
+
+      - name: Set AKS Context
+        run: |
+          az aks get-credentials \
+            --resource-group tanduri \
+            --name k8s_cluster \
+            --overwrite-existing
+
+      - name: Deploy to AKS
+        run: |
+          kubectl apply -f environment/dev/MicroTodoUI/manifests
