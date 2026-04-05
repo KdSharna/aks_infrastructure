@@ -1,9 +1,8 @@
-
 name: Build & Push to ACR
 
 on:
   workflow_run:
-    workflows: ["Build & Push to ACR"]
+    workflows: ["Terraform AKS Deploy"]   # 👈 FIX
     types:
       - completed
 
@@ -12,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  build:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
@@ -27,13 +26,11 @@ jobs:
           tenant-id: 3d084a01-eb62-47fe-bb1e-748c68591432
           subscription-id: cfc0d37c-0341-4d06-bcf3-35b93770a2ee
 
-      - name: Set AKS Context
-        run: |
-          az aks get-credentials \
-            --resource-group tanduri \
-            --name k8s_cluster \
-            --overwrite-existing
+      - name: ACR Login
+        run: az acr login --name akscon1
 
-      - name: Deploy to AKS
-        run: |
-          kubectl apply -f environment/dev/MicroTodoUI/manifests
+      - name: Build Docker Image
+        run: docker build -t akscon1.azurecr.io/myapp:v1 .
+
+      - name: Push Image to ACR
+        run: docker push akscon1.azurecr.io/myapp:v1
