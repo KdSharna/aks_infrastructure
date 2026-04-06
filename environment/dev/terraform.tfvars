@@ -16,7 +16,7 @@ name_rg = {
 
 
 cluster_ks = {
-  aks11 = {
+  main = {
     name                = "k8s_cluster"
     location            = "west us"
     resource_group_name = "tanduri"
@@ -33,7 +33,7 @@ default_node_pool = {
 }
 
 azure_acr = {
-  acr1 = {
+  main = {
     name                = "akscon1"
     resource_group_name = "tanduri"
     location            = "west us"
