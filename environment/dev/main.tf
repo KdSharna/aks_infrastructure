@@ -33,3 +33,18 @@ module "databasesql" {
 
   sqldatabase = var.databasesql
 }
+
+
+resource "azurerm_role_assignment" "aks_acr" {
+  for_each = module.cluster_ks.kubelet_object_id
+
+  principal_id                     = each.value
+  role_definition_name             = "AcrPull"
+  scope                            = module.azure_acr.acr_id[each.key]
+  skip_service_principal_aad_check = true
+
+  depends_on = [
+    module.cluster_ks,
+    module.azure_acr
+  ]
+}
