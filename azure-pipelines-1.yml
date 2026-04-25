@@ -28,10 +28,10 @@ steps:
       cd environment/dev
       terraform plan
 
-# - task: PowerShell@2
-#   displayName: Terraform destroy
-#   inputs:
-#     targetType: 'inline'
-#     script: |
-#       cd environment/dev
-#       terraform destroy -auto-approve
+- task: PowerShell@2
+  displayName: Terraform apply
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd environment/dev
+      terraform apply -auto-approve
