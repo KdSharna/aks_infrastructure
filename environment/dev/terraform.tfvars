@@ -44,7 +44,7 @@ azure_acr = {
 
 georeplications = {
   georeplica1 = {
-    location                = "Australia East"
+    location                = "North Europe"
     zone_redundancy_enabled = true
   }
   georeplica2 = {
