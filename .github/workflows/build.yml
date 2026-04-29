@@ -30,7 +30,13 @@ jobs:
         run: az acr login --name ${{ vars.ACR_NAME }}
 
       - name: Build Docker Image
-        run: docker build -t ${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ vars.IMAGE_TAG }} environment/dev/MicroTodoUI
+        run: |
+          docker build \
+            --build-arg REACT_APP_GET_TASKS_API_BASE_URL=${{ vars.REACT_APP_GET_TASKS_API_BASE_URL }} \
+            --build-arg REACT_APP_DELETE_TASK_API_BASE_URL=${{ vars.REACT_APP_DELETE_TASK_API_BASE_URL }} \
+            --build-arg REACT_APP_CREATE_TASK_API_BASE_URL=${{ vars.REACT_APP_CREATE_TASK_API_BASE_URL }} \
+            -t ${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ vars.IMAGE_TAG }} \
+            ${{ vars.DOCKER_CONTEXT }}
 
       - name: Push Image to ACR
         run: docker push ${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ vars.IMAGE_TAG }}
