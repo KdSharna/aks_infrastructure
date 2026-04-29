@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todo-delete-tasks-api
+  name: todo-delete-task-api
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: todo-delete-tasks-api
+      app: todo-delete-task-api
   template:
     metadata:
       labels:
-        app: todo-delete-tasks-api
+        app: todo-delete-task-api
     spec:
       containers:
-      - name: todo-delete-tasks-api
-        image: akscon1.azurecr.io/todo-delete-tasks-api:v1
+      - name: todo-delete-task-api
+        image: akscon1.azurecr.io/todo-delete-task-api:v1
         ports:
         - containerPort: 8000
         env: 
