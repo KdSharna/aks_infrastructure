@@ -6,9 +6,9 @@ import { Box } from '@mui/material';
 import config from './config'; // Import the config file with environment variable support
 
 // Use the config to define API URLs
-const GET_TASKS_API_BASE_URL = "http://10.0.52.214";
-const DELETE_TASK_API_BASE_URL = "http://10.0.21.219";
-const CREATE_TASK_API_BASE_URL = "http://10.0.238.19";
+const GET_TASK_API_BASE_URL = process.env.REACT_APP_GET_TASK_API;
+const DELETE_TASK_API_BASE_URL = process.env.REACT_APP_DELETE_TASK_API;
+const CREATE_TASK_API_BASE_URL = process.env.REACT_APP_CREATE_TASK_API;
 
 //Update Task Functionality is Work In Progress
 // const UPDATE_TASK_API_BASE_URL = '';
@@ -16,22 +16,22 @@ const CREATE_TASK_API_BASE_URL = "http://10.0.238.19";
 const backgroundImage = process.env.PUBLIC_URL + '/background.jpg';
 
 function TodoApp() {
-    const [tasks, setTasks] = useState([]);
+    const [task, settask] = useState([]);
     const [newTask, setNewTask] = useState({ title: '', description: '' });
 
-    const fetchTasks = async () => {
+    const fetchtask = async () => {
         try {
-            const response = await axios.get(`${GET_TASKS_API_BASE_URL}/tasks`);
-            setTasks(response.data);
+            const response = await axios.get(`${GET__API_BASE_URL}/`);
+            settask(response.data);
         } catch (error) {
-            console.error('Error fetching tasks', error);
+            console.error('Error fetching task', error);
         }
     };
 
     const createTask = async () => {
         try {
-            await axios.post(`${CREATE_TASK_API_BASE_URL}/tasks`, newTask);
-            fetchTasks();
+            await axios.post(`${CREATE_TASK_API_BASE_URL}/task`, newTask);
+            fetchtask();
             setNewTask({ title: '', description: '' });
         } catch (error) {
             console.error('Error creating task', error);
@@ -40,15 +40,15 @@ function TodoApp() {
 
     const deleteTask = async (taskId) => {
         try {
-            await axios.delete(`${DELETE_TASK_API_BASE_URL}/tasks/${taskId}`);
-            fetchTasks();
+            await axios.delete(`${DELETE_TASK_API_BASE_URL}/task/${taskId}`);
+            fetchtask();
         } catch (error) {
             console.error('Error deleting task', error);
         }
     };
 
     useEffect(() => {
-        fetchTasks();
+        fetchtask();
     }, []);
 
     return (
@@ -139,10 +139,10 @@ function TodoApp() {
                             margin: '15px',
                         }}
                     >
-                        Existing Tasks
+                        Existing task
                     </Typography>
 
-                    {tasks.map((task) => (
+                    {task.map((task) => (
                         <Box key={task.ID} mb={2}>
                             <Card key={task.ID} variant="elevation">
                                 <CardContent>
