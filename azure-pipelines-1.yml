@@ -1,0 +1,37 @@
+trigger: none
+
+pool: My_pool
+
+steps:
+
+- task: PowerShell@2
+  displayName: Terraform Init
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd environment/dev
+      terraform init
+
+- task: PowerShell@2
+  displayName: Terraform Validate
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd environment/dev
+      terraform validate
+
+- task: PowerShell@2
+  displayName: Terraform Plan
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd environment/dev
+      terraform plan
+
+- task: PowerShell@2
+  displayName: Terraform apply
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd environment/dev
+      terraform apply -auto-approve

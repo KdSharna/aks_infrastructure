@@ -19,6 +19,9 @@ spec:
         - containerPort: 8000
         env: 
         - name: CONNECTION_STRING
-          value: "Driver={ODBC Driver 18 for SQL Server};Server=tcp:mysqlservertittu123.database.windows.net,1433;Database=mysqldatabase;Uid=Tattu01!@@mysqlservertittu123;Pwd=Tattu!12345;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: CONNECTION_STRING
           
 

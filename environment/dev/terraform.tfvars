@@ -11,7 +11,7 @@ name_rg = {
 
 
 cluster_ks = {
-  aks11 = {
+  main = {
     name                = "k8s_cluster"
     location            = "Australia East"
     resource_group_name = "tanduri"
@@ -28,7 +28,7 @@ default_node_pool = {
 }
 
 azure_acr = {
-  acr1 = {
+  main = {
     name                = "akscon1"
     resource_group_name = "tanduri"
     location            = "Australia East"
@@ -39,7 +39,7 @@ azure_acr = {
 
 georeplications = {
   georeplica1 = {
-    location                = "east us"
+    location                = "North Europe"
     zone_redundancy_enabled = true
   }
   georeplica2 = {

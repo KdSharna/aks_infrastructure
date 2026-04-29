@@ -1,0 +1,42 @@
+name: Build & Push to ACR
+
+on:
+  workflow_run:
+    workflows: ["Terraform AKS Deploy"]   # 👈 FIX
+    types:
+      - completed
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Azure Login (OIDC)
+        uses: azure/login@v1
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: ACR Login
+        run: az acr login --name ${{ vars.ACR_NAME }}
+
+      - name: Build Docker Image
+        run: |
+          docker build \
+            --build-arg REACT_APP_GET_TASKS_API_BASE_URL=${{ vars.REACT_APP_GET_TASKS_API_BASE_URL }} \
+            --build-arg REACT_APP_DELETE_TASK_API_BASE_URL=${{ vars.REACT_APP_DELETE_TASK_API_BASE_URL }} \
+            --build-arg REACT_APP_CREATE_TASK_API_BASE_URL=${{ vars.REACT_APP_CREATE_TASK_API_BASE_URL }} \
+            -t ${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ vars.IMAGE_TAG }} \
+            ${{ vars.DOCKER_CONTEXT }}
+
+      - name: Push Image to ACR
+        run: docker push ${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ vars.IMAGE_TAG }}

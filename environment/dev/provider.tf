@@ -9,7 +9,7 @@ terraform {
     resource_group_name  = "pintu11"
     storage_account_name = "tattu101"
     container_name       = "con99"
-    key                  = "aorocd.terraform_state"
+    key                  = "banana_terraform_state"
   }
 }
 provider "azurerm" {
