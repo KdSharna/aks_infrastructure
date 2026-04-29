@@ -35,3 +35,10 @@ steps:
 #     script: |
 #       cd environment/dev
 #       terraform destroy -auto-approve
+
+- task: PowerShell@2
+  displayName: Terraform destroy
+  inputs:
+    targetType: 'inline'
+    script: |
+      terraform apply -auto-approve
