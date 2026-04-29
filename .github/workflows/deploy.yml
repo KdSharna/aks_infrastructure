@@ -32,10 +32,10 @@ jobs:
       - name: Set AKS Context
         run: |
           az aks get-credentials \
-            --resource-group tanduri \
-            --name k8s_cluster \
+            --resource-group ${{ vars.AKS_RESOURCE_GROUP }} \
+            --name ${{ vars.AKS_CLUSTER_NAME }} \
             --overwrite-existing
 
       - name: Deploy to AKS
         run: |
-          kubectl apply -f environment/dev/MicroTodoUI/manifests/deployment.yaml
+          kubectl apply -f ${{ vars.K8S_MANIFEST_PATH }}  
