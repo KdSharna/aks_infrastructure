@@ -6,9 +6,9 @@ import { Box } from '@mui/material';
 import config from './config'; // Import the config file with environment variable support
 
 // Use the config to define API URLs
-const GET_TASK_API_BASE_URL = process.env.REACT_APP_GET_TASK_API;
-const DELETE_TASK_API_BASE_URL = process.env.REACT_APP_DELETE_TASK_API;
-const CREATE_TASK_API_BASE_URL = process.env.REACT_APP_CREATE_TASK_API;
+const GET_TASK_API_BASE_URL = process.env.REACT_APP_GET_TASKS_API_BASE_URL;
+const DELETE_TASK_API_BASE_URL = process.env.REACT_APP_DELETE_TASK_API_BASE_URL;
+const CREATE_TASK_API_BASE_URL = process.env.REACT_APP_CREATE_TASK_API_BASE_URL;
 
 //Update Task Functionality is Work In Progress
 // const UPDATE_TASK_API_BASE_URL = '';
@@ -19,18 +19,18 @@ function TodoApp() {
     const [task, settask] = useState([]);
     const [newTask, setNewTask] = useState({ title: '', description: '' });
 
-    const fetchtask = async () => {
-        try {
-            const response = await axios.get(`${GET__API_BASE_URL}/`);
-            settask(response.data);
-        } catch (error) {
-            console.error('Error fetching task', error);
-        }
-    };
+const fetchtask = async () => {
+    try {
+        const response = await axios.get(`${GET_TASK_API_BASE_URL}/tasks`);
+        settask(response.data);
+    } catch (error) {
+        console.error('Error fetching task', error);
+    }
+};
 
     const createTask = async () => {
         try {
-            await axios.post(`${CREATE_TASK_API_BASE_URL}/task`, newTask);
+            await axios.post(`${CREATE_TASK_API_BASE_URL}/tasks`, newTask);
             fetchtask();
             setNewTask({ title: '', description: '' });
         } catch (error) {
@@ -40,7 +40,7 @@ function TodoApp() {
 
     const deleteTask = async (taskId) => {
         try {
-            await axios.delete(`${DELETE_TASK_API_BASE_URL}/task/${taskId}`);
+            await axios.delete(`${DELETE_TASK_API_BASE_URL}/tasks/${taskId}`);
             fetchtask();
         } catch (error) {
             console.error('Error deleting task', error);
