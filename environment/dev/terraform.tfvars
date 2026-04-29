@@ -7,11 +7,6 @@ name_rg = {
       cost_center = "dev"
     }
   }
-  #   rg2 = {
-  #     name       = "tanduri1"
-  #     location   = "Australia East"
-  #     managed_by = "terraform"
-  #   }
 }
 
 

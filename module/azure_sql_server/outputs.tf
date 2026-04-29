@@ -1,9 +1,6 @@
-# output "sql_server" {
-#   value = {
-#     for k, server in azurerm_mssql_server.sql_server : k => {
-#       name     = server.name
-#       location = server.location
-#       id       = server.id
-#     }
-#   }
-# }
+output "sql_fqdn" {
+  value = {
+    for k, v in azurerm_mssql_server.sqlserver :
+    k => v.fully_qualified_domain_name
+  }
+}
