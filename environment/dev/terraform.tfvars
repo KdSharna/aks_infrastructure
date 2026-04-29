@@ -1,24 +1,19 @@
 name_rg = {
   rg1 = {
     name       = "tanduri"
-    location   = "west us"
+    location   = "Australia East"
     managed_by = "terraform"
     tags = {
       cost_center = "dev"
     }
   }
-  #   rg2 = {
-  #     name       = "tanduri1"
-  #     location   = "east us2"
-  #     managed_by = "terraform"
-  #   }
 }
 
 
 cluster_ks = {
   aks11 = {
     name                = "k8s_cluster"
-    location            = "west us"
+    location            = "Australia East"
     resource_group_name = "tanduri"
     dns_prefix          = "aks0101"
   }
@@ -36,7 +31,7 @@ azure_acr = {
   acr1 = {
     name                = "akscon1"
     resource_group_name = "tanduri"
-    location            = "west us"
+    location            = "Australia East"
     sku                 = "Premium"
     admin_enabled       = false
   }
@@ -57,7 +52,7 @@ serversql = {
   server1 = {
     name                         = "mysqlservertittu1234"
     resource_group_name          = "tanduri"
-    location                     = "west us"
+    location                     = "Australia East"
     version                      = "12.0"
     administrator_login          = "Tattu01!@"
     administrator_login_password = "Tattu!12345"
