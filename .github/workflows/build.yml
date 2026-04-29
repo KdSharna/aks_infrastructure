@@ -27,10 +27,10 @@ jobs:
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
       - name: ACR Login
-        run: az acr login --name akscon1
+        run: az acr login --name ${{ vars.ACR_NAME }}
 
       - name: Build Docker Image
-        run: docker build -t akscon1.azurecr.io/todo-ui:v1 environment/dev/MicroTodoUI
+        run: docker build -t ${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ vars.IMAGE_TAG }} environment/dev/MicroTodoUI
 
       - name: Push Image to ACR
-        run: docker push akscon1.azurecr.io/todo-ui:v1
+        run: docker push ${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ vars.IMAGE_TAG }}
