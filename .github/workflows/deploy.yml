@@ -38,4 +38,4 @@ jobs:
 
       - name: Deploy to AKS
         run: |
-          kubectl apply -f ${{ vars.K8S_MANIFEST_PATH }}  
+          kubectl apply -f ${{ vars.K8S_MANIFEST_PATH }}
