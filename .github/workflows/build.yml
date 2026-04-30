@@ -39,4 +39,4 @@ jobs:
             ${{ vars.DOCKER_CONTEXT }}
 
       - name: Push Image to ACR
-        run: docker push ${{ vars.ACR_LOGIN_SERVER }}/${{ vars.IMAGE_NAME }}:${{ vars.IMAGE_TAG }}
+        run: -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }}
