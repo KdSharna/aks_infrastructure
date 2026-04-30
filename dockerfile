@@ -3,11 +3,11 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY environment/dev/MicroTodoUI/package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY environment/dev/MicroTodoUI/. .
 
 RUN npm run build
 
