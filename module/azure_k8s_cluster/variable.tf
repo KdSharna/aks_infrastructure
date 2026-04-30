@@ -29,3 +29,7 @@ locals {
     project     = var.project_name
   }
 }
+
+variable "acr_id" {
+  type = string
+}
