@@ -30,6 +30,12 @@ jobs:
       - name: Install kubectl
         run: az aks install-cli
 
+      - name: Debug Variables
+        run: |
+          echo "RG=${{ vars.AKS_RESOURCE_GROUP }}"
+          echo "CLUSTER=${{ vars.AKS_CLUSTER_NAME }}"
+          echo "PATH=${{ vars.K8S_MANIFEST_PATH }}"
+
       - name: Set AKS Context
         run: |
           az aks get-credentials \
