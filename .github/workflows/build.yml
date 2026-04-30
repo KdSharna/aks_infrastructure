@@ -1,10 +1,11 @@
 name: Build & Push to ACR
 
 on:
-  workflow_run:
-    workflows: ["Terraform AKS Deploy"]   # 👈 FIX
-    types:
-      - completed
+  # workflow_run:
+  #   workflows: ["Terraform AKS Deploy"]   # 👈 FIX
+  #   types:
+  #     - completed
+  workflow_dispatch: 
 
 permissions:
   id-token: write
@@ -12,7 +13,7 @@ permissions:
 
 jobs:
   build:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +28,8 @@ jobs:
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
       - name: ACR Login
-        run: az acr login --name ${{ vars.ACR_NAME }}
+        # run: az acr login --name ${{ vars.ACR_NAME }}
+        run: az acr login --name ${{ secrets.ACR_NAME }}
 
       - name: Build Docker Image
         run: |
@@ -39,4 +41,5 @@ jobs:
             ${{ vars.DOCKER_CONTEXT }}
 
       - name: Push Image to ACR
-        run: -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }}
+        # run: -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }}
+        run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }}
