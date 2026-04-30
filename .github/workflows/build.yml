@@ -1,11 +1,11 @@
 name: Build & Push to ACR
 
 on:
-  # workflow_run:
-  #   workflows: ["Terraform AKS Deploy"]   # 👈 FIX
-  #   types:
-  #     - completed
-  workflow_dispatch: 
+  workflow_run:
+    workflows: ["Terraform AKS Deploy"]   # 👈 FIX
+    types:
+      - completed
+  # workflow_dispatch: 
 
 permissions:
   id-token: write
@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build:
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
