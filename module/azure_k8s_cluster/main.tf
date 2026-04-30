@@ -20,3 +20,15 @@ resource "azurerm_kubernetes_cluster" "ks_cluster" {
   }
   tags = local.common_tags
 }
+
+resource "azurerm_role_assignment" "aks_acr" {
+  for_each = azurerm_kubernetes_cluster.ks_cluster
+
+  principal_id         = each.value.kubelet_identity[0].object_id
+  role_definition_name = "AcrPull"
+  scope                = var.acr_id
+
+  depends_on = [
+    azurerm_kubernetes_cluster.ks_cluster
+  ]
+}
