@@ -37,6 +37,7 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build \
+            -f dockerfile \
             --build-arg REACT_APP_GET_TASKS_API_BASE_URL=${{ secrets.REACT_APP_GET_TASKS_API_BASE_URL }} \
             --build-arg REACT_APP_DELETE_TASK_API_BASE_URL=${{ secrets.REACT_APP_DELETE_TASK_API_BASE_URL }} \
             --build-arg REACT_APP_CREATE_TASK_API_BASE_URL=${{ secrets.REACT_APP_CREATE_TASK_API_BASE_URL }} \
@@ -46,3 +47,10 @@ jobs:
       - name: Push Image to ACR
         # run: -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }}
         run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }}
+
+
+
+
+
+
+        
